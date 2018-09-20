@@ -93,7 +93,6 @@ public class BabayagaTask extends AsyncTask<String, String, Void> {
                     uvts = responseData.getString("uvts");
                     Babayaga.setUvts(uvts);
                 } catch(JSONException e) {
-                    e.printStackTrace();
                     uvts = body.substring(10, body.length() - 2);
                     Babayaga.setUvts(uvts);
                 }
