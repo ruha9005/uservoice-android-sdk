@@ -18,7 +18,7 @@ uploadArchives {
     repositories.mavenDeployer {
         pom.groupId = 'com.github.ruha9005'
         pom.artifactId = 'uservoice-android-sdk'
-        pom.version = '1.2.9'
+        pom.version = '1.2.10'
         // Add other pom properties here if you want (developer details / licenses)
         repository(url: "file:///Users/austin/tmp/")
     }
@@ -56,6 +56,8 @@ dependencies {
     implementation 'com.android.support:support-core-utils:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    //implementation 'oauth.signpost:signpost-core:1.2.1.2'
+    implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
     implementation 'oauth.signpost:signpost-core:1.2.1.2'
     implementation 'com.github.jitpack:gradle-simple:1.1'
 }

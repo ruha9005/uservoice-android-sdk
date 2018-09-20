@@ -1,11 +1,5 @@
 package com.uservoice.uservoicesdk;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import oauth.signpost.OAuthConsumer;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -17,7 +11,13 @@ import com.uservoice.uservoicesdk.model.Forum;
 import com.uservoice.uservoicesdk.model.RequestToken;
 import com.uservoice.uservoicesdk.model.Topic;
 import com.uservoice.uservoicesdk.model.User;
-import com.uservoice.uservoicesdk.rest.OkOAuthConsumer;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import oauth.signpost.OAuthConsumer;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
 
 public class Session {
 
@@ -94,9 +94,9 @@ public class Session {
     public OAuthConsumer getOAuthConsumer(Context context) {
         if (oauthConsumer == null) {
             if (getConfig(context).getKey() != null)
-                oauthConsumer = new OkOAuthConsumer(getConfig(context).getKey(), getConfig(context).getSecret());
+                oauthConsumer = new OkHttpOAuthConsumer(getConfig(context).getKey(), getConfig(context).getSecret());
             else if (clientConfig != null)
-                oauthConsumer = new OkOAuthConsumer(clientConfig.getKey(), clientConfig.getSecret());
+                oauthConsumer = new OkHttpOAuthConsumer(clientConfig.getKey(), clientConfig.getSecret());
         }
         return oauthConsumer;
     }
