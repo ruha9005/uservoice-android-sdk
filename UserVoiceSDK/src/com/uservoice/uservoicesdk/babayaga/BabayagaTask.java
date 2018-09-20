@@ -1,22 +1,24 @@
 package com.uservoice.uservoicesdk.babayaga;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Date;
-import java.util.Map;
-
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 
+import com.uservoice.uservoicesdk.Session;
+import com.uservoice.uservoicesdk.UserVoice;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Date;
+import java.util.Map;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import com.uservoice.uservoicesdk.Session;
-import com.uservoice.uservoicesdk.UserVoice;
 
 public class BabayagaTask extends AsyncTask<String, String, Void> {
 
@@ -85,9 +87,17 @@ public class BabayagaTask extends AsyncTask<String, String, Void> {
             String body = response.body().string();
             if (body.length() > 0) {
                 String payload = body.substring(2, body.length() - 2);
-                JSONObject responseData = new JSONObject(payload);
-                String uvts = responseData.getString("uvts");
-                Babayaga.setUvts(uvts);
+                String uvts;
+                try {
+                    JSONObject responseData = new JSONObject(payload);
+                    uvts = responseData.getString("uvts");
+                    Babayaga.setUvts(uvts);
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                    uvts = body.substring(10, body.length() - 2);
+                    Babayaga.setUvts(uvts);
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
